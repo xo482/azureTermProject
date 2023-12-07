@@ -3,24 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>textSubmit</title>
+    <title>Vote App</title>
 </head>
 <body>
-    <p>원하는 텍스트를 입력하세요.</p>
-    <textarea id="text"></textarea>
-    <br>
-    <button id="submitButton">submit</button>
-    <button id="submitButton2">submit</button>
-    <br>
-    <br>
-    <br>
-    <br>
-    <textarea id="text2"></textarea>
+    <button id="button1" onclick="vote(1)">Vote 1</button>
+    <p id="voteCount1">투표 수: 0</p>
 
+    <button id="button2" onclick="vote(2)">Vote 2</button>
+    <p id="voteCount2">투표 수: 0</p>
 
+    <button id="button3" onclick="vote(3)">Vote 3</button>
+    <p id="voteCount3">투표 수: 0</p>
 
-
-
-    <script src="test2.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
