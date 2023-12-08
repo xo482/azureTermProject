@@ -1,7 +1,7 @@
 // script.js
 
 // 함수 엔드포인트 URL
-const functionUrl = "https://testfunctionxx.azurewebsites.net/api/HttpTrigger1?code=ySDrPhUUD1JNTbMyEN0d6qLFiD5cjZpsp_nezJ2dNxXKAzFu9UozCQ=="; // Azure Functions의 URL로 대체
+const functionUrl = "https://testfunctionxx.azurewebsites.net/api/HttpTrigger1?code=ySDrPhUUD1JNTbMyEN0d6qLFiD5cjZpsp_nezJ2dNxXKAzFu9UozCQ==";
 
 // 클릭 이벤트 핸들러
 async function vote(id) {
