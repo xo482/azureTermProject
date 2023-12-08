@@ -15,6 +15,33 @@
     <button id="button3" onclick="vote(3)">Vote 3</button>
     <p id="voteCount3">투표 수: 0</p>
 
-    <script src="script.js"></script>
+    <script>
+        // 투표 함수
+        async function vote(id) {
+            try {
+                // 서버에 투표 요청 보내기
+                const response = await fetch(`http://localhost:3000/api/vote`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id }),
+                });
+
+                // 서버로부터 받은 응답 처리
+                const data = await response.json();
+
+                if (data.success) {
+                    // 성공적으로 업데이트된 투표 수를 UI에 반영
+                    const voteCountElement = document.getElementById(`voteCount${id}`);
+                    voteCountElement.textContent = `투표 수: ${data.updatedVote.cnt}`;
+                } else {
+                    console.error('Failed to vote:', data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 </html>
