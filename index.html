@@ -1,3 +1,5 @@
+<!-- 예제 HTML 코드 (index.html) -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +11,17 @@
 <body>
     <h1>Hello from Static Web App!</h1>
 
+    <button onclick="callAzureFunction()">Call Azure Function</button>
+
     <script>
-        fetch('https://xoxo4848.azurewebsites.net/api/HttpTrigger1') // Replace with your actual function name
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+        function callAzureFunction() {
+            fetch('/api/your-function-name') // Replace with your actual function name
+                .then(response => response.json())
+                .then(data => {
+                    alert('Response from Azure Function: ' + data.body);
+                })
+                .catch(error => console.error('Error:', error));
+        }
     </script>
 </body>
 </html>
