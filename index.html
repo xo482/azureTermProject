@@ -2,63 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote App</title>
+    <title>Static Web App with Azure Functions</title>
 </head>
 <body>
-    <button id="button1" onclick="vote(1)">Vote 1</button>
-    <p id="voteCount1">투표 수: 1</p>
-
-    <button id="button2" onclick="vote(2)">Vote 2</button>
-    <p id="voteCount2">투표 수: 0</p>
-
-    <button id="button3" onclick="vote(3)">Vote 3</button>
-    <p id="voteCount3">투표 수: 0</p>
+    <h1>Hello from Static Web App!</h1>
 
     <script>
-        // 페이지 로드 시 초기값 설정
-        document.addEventListener('DOMContentLoaded', async function () {
-            try {
-                // 서버에서 현재 투표 상태 가져오기
-                const response = await fetch(`https://testfunctionxx.azurewebsites.net/api/myfunction`);
-                const data = await response.json();
-
-                if (data.success) {
-                    // 서버에서 받아온 초기값으로 UI 업데이트
-                    data.votes.forEach(vote => {
-                        const voteCountElement = document.getElementById(`voteCount${vote.id}`);
-                        voteCountElement.textContent = `투표 수: ${vote.cnt}`;
-                    });
-                } else {
-                    console.error('Failed to get initial vote counts:', data.message);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        });
-
-        // 투표 함수
-        async function vote(id) {
-            try {
-                // 서버에 투표 요청 보내기
-                const response = await fetch(`https://testfunctionxx.azurewebsites.net/api/myfunction?id=${id}`, {
-                    method: 'POST',
-                });
-
-                // 서버로부터 받은 응답 처리
-                const data = await response.json();
-
-                if (data.success) {
-                    // 성공적으로 업데이트된 투표 수를 UI에 반영
-                    const voteCountElement = document.getElementById(`voteCount${id}`);
-                    voteCountElement.textContent = `투표 수: ${data.updatedVote.cnt}`;
-                } else {
-                    console.error('Failed to vote:', data.message);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+        fetch('https://xoxo4848.azurewebsites.net/api/HttpTrigger1') // Replace with your actual function name
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
     </script>
 </body>
 </html>
