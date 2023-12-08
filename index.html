@@ -15,7 +15,7 @@
 
     <script>
         function callAzureFunction() {
-            fetch('/api/your-function-name') // Replace with your actual function name
+            fetch('https://xoxo4848.azurewebsites.net/api/HttpTrigger1') // Replace with your actual function name
                 .then(response => response.json())
                 .then(data => {
                     alert('Response from Azure Function: ' + data.body);
