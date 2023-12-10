@@ -1,27 +1,33 @@
-<!-- 예제 HTML 코드 (index.html) -->
-
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Static Web App with Azure Functions</title>
+    <title>Azure Static Web App Example</title>
 </head>
 <body>
-    <h1>Hello from Static Web App!</h1>
 
-    <button onclick="callAzureFunction()">Call Azure Function</button>
+<button id="executeFunction">Execute Azure Function</button>
 
-    <script>
-        function callAzureFunction() {
-            fetch('https://xoxo4848.azurewebsites.net/api/HttpTrigger1') // Replace with your actual function name
-                .then(response => response.json())
-                .then(data => {
-                    alert('Response from Azure Function: ' + data.body);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+<!-- 결과를 표시할 엘리먼트 추가 -->
+<div id="result"></div>
+
+<script>
+document.getElementById('executeFunction').addEventListener('click', async () => {
+    try {
+        // Azure Function을 호출하는 부분
+        const response = await fetch('/api/yourFunctionName'); // 함수의 경로에 따라 수정
+        const data = await response.json();
+        
+        // 결과를 웹페이지에 표시
+        document.getElementById('result').innerHTML = `Function Result: ${data.body}`;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+</script>
+
 </body>
 </html>
