@@ -22,7 +22,7 @@ document.getElementById('executeFunction').addEventListener('click', async () =>
         const data = await response.json();
         
         // 결과를 웹페이지에 표시
-        document.getElementById('result').innerHTML = `Function Result: ${data.body}`;
+        document.getElementById('result').innerHTML = `Function Result: ${data.result}<br>Timestamp: ${data.timestamp}`;
     } catch (error) {
         console.error('Error:', error);
     }
