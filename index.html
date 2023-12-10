@@ -5,31 +5,85 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pets Count Example</title>
+    <title>Pet Voting Example</title>
 </head>
 <body>
 
-<!-- 결과를 표시할 엘리먼트 추가 -->
-<div id="result"></div>
+<!-- 버튼 및 결과 엘리먼트 추가 -->
+<button id="dogButton">강아지</button>
+<button id="catButton">고양이</button>
+<button id="parrotButton">앵무새</button>
+
+<div id="dogResult">투표 수: </div>
+<div id="catResult">투표 수: </div>
+<div id="parrotResult">투표 수: </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
+    // 초기화 함수 호출
+    await initializeVotes();
+
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', async () => {
+            try {
+                // 버튼 이름과 투표 수 업데이트 함수 호출
+                const petName = button.textContent;
+                await updateVote(petName);
+                // 업데이트된 결과 표시 함수 호출
+                await displayResults(petName);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+
+// 초기화 함수
+async function initializeVotes() {
     try {
-        // Azure Function을 호출하는 부분
+        // 서버로부터 초기 투표 결과 가져오기
         const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
         const data = await response.json();
-        
-        // 결과를 웹페이지에 표시
-        const resultElement = document.getElementById('result');
-        resultElement.innerHTML = '<h2>Pets Count:</h2>';
 
+        // 초기 투표 결과를 웹페이지에 표시
         data.forEach(pet => {
-            resultElement.innerHTML += `<p>${pet.name}: ${pet.cnt}</p>`;
+            const resultElement = document.getElementById(`${pet.name}Result`);
+            resultElement.textContent += pet.cnt;
         });
     } catch (error) {
         console.error('Error:', error);
     }
-});
+}
+
+// 투표 수 업데이트 함수
+async function updateVote(petName) {
+    try {
+        // 서버로 투표 업데이트 요청 보내기
+        const response = await fetch(`https://testsdaasasd.azurewebsites.net/api/vote?petName=${petName}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// 결과 표시 함수
+async function displayResults(petName) {
+    try {
+        // 서버로부터 업데이트된 투표 결과 가져오기
+        const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
+        const data = await response.json();
+
+        // 업데이트된 결과를 웹페이지에 표시
+        const resultElement = document.getElementById(`${petName}Result`);
+        resultElement.textContent = `투표 수: ${data.find(pet => pet.name === petName).cnt}`;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 </script>
 
 </body>
