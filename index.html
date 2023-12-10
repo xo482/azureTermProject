@@ -10,9 +10,7 @@
 <body>
 
 <!-- 결과를 표시할 엘리먼트 추가 -->
-<div id="dogResult">강아지 투표 수: </div>
-<div id="catResult">고양이 투표 수: </div>
-<div id="parrotResult">앵무새 투표 수: </div>
+<div id="result"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
@@ -22,11 +20,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const data = await response.json();
         
         // 결과를 웹페이지에 표시
+        const resultElement = document.getElementById('result');
+        resultElement.innerHTML = '<h2>Pets Count:</h2>';
+
         data.forEach(pet => {
-            const resultElement = document.getElementById(`${pet.name.toLowerCase()}Result`);
-            if (resultElement) {
-                resultElement.innerHTML = `<h2>${pet.name} 투표 수:</h2><p>${pet.cnt}</p>`;
-            }
+            resultElement.innerHTML += `<p>${pet.name}의 투표 수: ${pet.cnt}</p>`;
         });
     } catch (error) {
         console.error('Error:', error);
