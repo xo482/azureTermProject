@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 <!-- 결과를 표시할 엘리먼트 추가 -->
 <div id="result"></div>
 
@@ -24,9 +23,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultElement = document.getElementById('result');
         resultElement.innerHTML = '<h2>User List:</h2>';
 
-        data.forEach(user => {
-            resultElement.innerHTML += `<p>ID: ${user.id}, Username: ${user.username}</p>`;
-        });
+        if (Array.isArray(data)) {
+            data.forEach(user => {
+                resultElement.innerHTML += `<p>ID: ${user.id}, Username: ${user.username}</p>`;
+            });
+        } else {
+            resultElement.innerHTML = '<p>No user data available</p>';
+        }
     } catch (error) {
         console.error('Error:', error);
     }
