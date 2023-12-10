@@ -10,6 +10,13 @@
 <body>
 
 <!-- 결과를 표시할 엘리먼트 추가 -->
+<p>당신이 가장 선호하는 애완 동물을 선택해주세요!</p>
+<button id="dogButton">강아지</button>
+<button id="catButton">고양이</button>
+<button id="parrotButton">앵무새</button>
+<br>
+<br>
+<br>
 <div id="result"></div>
 
 <script>
@@ -21,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // 결과를 웹페이지에 표시
         const resultElement = document.getElementById('result');
-        resultElement.innerHTML = '<h2>Pets Count:</h2>';
+        resultElement.innerHTML = '<h2>전체 투표 수</h2>';
 
         data.forEach(pet => {
             resultElement.innerHTML += `<p>${pet.name}의 투표 수: ${pet.cnt}</p>`;
