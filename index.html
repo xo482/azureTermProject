@@ -9,6 +9,11 @@
 </head>
 <body>
 
+<!-- 오디오 엘리먼트 추가 -->
+<audio id="dogSound" src="https://image2019305009.blob.core.windows.net/sound/dog.mp3"></audio>
+<audio id="catSound" src="https://image2019305009.blob.core.windows.net/sound/cat.mp3"></audio>
+<audio id="parrotSound" src="https://image2019305009.blob.core.windows.net/sound/parrot.mp3"></audio>
+
 <!-- 이미지를 표시할 엘리먼트 추가 -->
 <img id="dogImage" src="https://image2019305009.blob.core.windows.net/image/dog.jpg" alt="Dog Image">
 <img id="catImage" src="https://image2019305009.blob.core.windows.net/image/cat.jpg" alt="Cat Image">
@@ -42,6 +47,10 @@ async function vote(petName) {
     try {
         // 해당 동물의 투표 수 증가
         await fetch(`https://testsdaasasd.azurewebsites.net/api/vote?petName=${petName}`);
+
+        // 해당 동물의 소리 재생
+        const soundElement = document.getElementById(`${petName}Sound`);
+        soundElement.play();
 
         // 업데이트된 전체 투표 결과 가져오기
         const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
