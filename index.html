@@ -20,12 +20,27 @@
 <div id="result"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
+document.getElementById('dogButton').addEventListener('click', async () => {
+    await vote('강아지');
+});
+
+document.getElementById('catButton').addEventListener('click', async () => {
+    await vote('고양이');
+});
+
+document.getElementById('parrotButton').addEventListener('click', async () => {
+    await vote('앵무새');
+});
+
+async function vote(petName) {
     try {
-        // Azure Function을 호출하는 부분
+        // 해당 동물의 투표 수 증가
+        await fetch(`https://testsdaasasd.azurewebsites.net/api/vote?petName=${petName}`);
+
+        // 업데이트된 전체 투표 결과 가져오기
         const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
         const data = await response.json();
-        
+
         // 결과를 웹페이지에 표시
         const resultElement = document.getElementById('result');
         resultElement.innerHTML = '<h2>전체 투표 수</h2>';
@@ -36,7 +51,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+// 초기 전체 투표 결과 표시
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
+        const data = await response.json();
+        
+        const resultElement = document.getElementById('result');
+        resultElement.innerHTML = '<h2>전체 투표 수</h2>';
+
+        data.forEach(pet => {
+            resultElement.innerHTML += `<p>${pet.name}의 투표 수: ${pet.cnt}</p>`;
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
 });
+
 </script>
 
 </body>
