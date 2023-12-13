@@ -46,14 +46,14 @@ document.getElementById('parrotButton').addEventListener('click', async () => {
 async function vote(petName) {
     try {
         // 해당 동물의 투표 수 증가
-        await fetch(`https://testsdaasasd.azurewebsites.net/api/vote?petName=${petName}`);
+        await fetch(`https://functionapp2019305009.azurewebsites.net/api/counting?petName=${petName}`);
 
         // 해당 동물의 소리 재생
         const soundElement = document.getElementById(`${petName}Sound`);
         soundElement.play();
 
         // 업데이트된 전체 투표 결과 가져오기
-        const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
+        const response = await fetch('https://functionapp2019305009.azurewebsites.net/api/getTable');
         const data = await response.json();
         data.sort((a, b) => {
             const order = { '강아지': 1, '고양이': 2, '앵무새': 3 };
@@ -75,7 +75,7 @@ async function vote(petName) {
 // 초기 전체 투표 결과 표시
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('https://testsdaasasd.azurewebsites.net/api/initial_value');
+        const response = await fetch('https://functionapp2019305009.azurewebsites.net/api/getTable');
         const data = await response.json();
         data.sort((a, b) => {
             const order = { '강아지': 1, '고양이': 2, '앵무새': 3 };
